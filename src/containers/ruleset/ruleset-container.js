@@ -9,6 +9,8 @@ import Decisions from "../../components/decisions/decision";
 import ValidateRules from "../../components/validate/validate-rules";
 import { handleAttribute } from "../../actions/attributes";
 import Button from "../../components/button/button";
+import DiffRenderer from "../../components/diff-renderer";
+import Modal from "react-modal";
 import {
   handleDecision,
   addRulesetData,
@@ -26,14 +28,18 @@ import SweetAlert from "react-bootstrap-sweetalert";
 import attributes from "../../constants/attributes.json";
 import {
   getSha,
-  updateFile,
   getBranchSha,
   createPR,
   createBranch,
+  mergePR,
+  createBlob,
+  createTree,
+  createCommit,
 } from "../../api";
 import { PREFERENCE_PATH } from "../../constants/paths.json";
 import Loader from "../../components/loader/loader";
 
+Modal.setAppElement("#root");
 const operatorsMap = {
   equal: "==",
   notEqual: "not_in",
@@ -151,6 +157,12 @@ const getFormattedValue = (
 const parseTypeFloat = (val) => {
   return parseFloat(val);
 };
+const getPullId = (diffURL) => {
+  const pid = diffURL.split("/");
+  const id = pid[pid.length - 1].split(".")[0];
+  return id;
+};
+
 class RulesetContainer extends Component {
   constructor(props) {
     super(props);
@@ -171,6 +183,10 @@ class RulesetContainer extends Component {
       prBody: "",
       prURL: "",
       conditions: conditions,
+      mergeFlag: false,
+      showDiff: false,
+      branch: "",
+      branchSha: "",
     };
     this.generateFile = this.generateFile.bind(this);
     this.cancelAlert = this.cancelAlert.bind(this);
@@ -183,6 +199,8 @@ class RulesetContainer extends Component {
     this.handleValue = this.handleValue.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.resetPushFields = this.resetPushFields.bind(this);
+    this.merge = this.merge.bind(this);
+    this.closeDiffView = this.closeDiffView.bind(this);
   }
   resetPushFields() {
     this.setState({
@@ -326,6 +344,41 @@ class RulesetContainer extends Component {
     link.click();
     this.setState({ pushFlag: true });
   }
+  closeDiffView() {
+    this.setState({ showDiff: false, diffURL: "" });
+  }
+
+  async merge() {
+    if (this.state.branch) {
+      this.setState({ loading: true });
+      await createBranch({
+        token: this.state.accessToken,
+        sha: this.state.branchSha,
+        branch: this.state.branch,
+      });
+
+      const timestamp = new Date().toISOString().slice(0, 16).replace(":", "");
+      const { html_url, diff_url } = await createPR({
+        token: this.state.accessToken,
+        title: this.state.prTitle || `Routing Rule Changes - ${timestamp}`,
+        content: this.state.prBody || `Routing Rule Changes - ${timestamp}`,
+        head: this.state.branch,
+      });
+
+      try {
+        await mergePR({
+          token: this.state.accessToken,
+          pullId: getPullId(diff_url),
+        });
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log(err);
+      }
+      this.closeDiffView();
+      this.setState({ mergeFlag: true, loading: false, prURL: html_url });
+      this.resetPushFields();
+    }
+  }
   async pushToRepo() {
     if (this.state.message === "") {
       this.setState({
@@ -344,6 +397,7 @@ class RulesetContainer extends Component {
 
     // get latest sha if the file already exists
     try {
+      // eslint-disable-next-line no-unused-vars
       let sha;
 
       const { data: { sha: Sha } = {} } = await getSha({
@@ -360,39 +414,56 @@ class RulesetContainer extends Component {
         token: this.state.accessToken,
       });
       branchSha = bSha;
-      const timestamp = new Date().toISOString().slice(0, 16).replace(":", "");
+      const treeItems = [];
       const branch = `routing-rule-changes-${new Date()
         .toISOString()
         .slice(0, 16)
         .replace(":", "")}`;
-      await createBranch({
+      //   await updateFile({
+      //     message: this.state.message,
+      //     content: JSON.stringify(obj, null, 2),
+      //     sha,
+      //     path: PREFERENCE_PATH,
+      //     token: this.state.accessToken,
+      //     branch,
+      //   });
+      const data = await createBlob({
         token: this.state.accessToken,
-        sha: branchSha,
-        branch,
-      });
-      await updateFile({
-        message: this.state.message,
         content: JSON.stringify(obj, null, 2),
-        sha,
-        path: PREFERENCE_PATH,
-        token: this.state.accessToken,
-        branch,
       });
-      const { html_url } = await createPR({
+      treeItems.push({
+        path: `${PREFERENCE_PATH}`,
+        sha: data.sha,
+        mode: "100644",
+        type: "blob",
+      });
+
+      const treeRsp = await createTree({
         token: this.state.accessToken,
-        title: this.state.prTitle || `Routing Rule Changes - ${timestamp}`,
-        content: this.state.prBody || `Routing Rule Changes - ${timestamp}`,
-        head: branch,
+        tree: treeItems,
+        base_tree: branchSha,
+      });
+
+      const commitRsp = await createCommit({
+        token: this.state.accessToken,
+        message: this.state.message,
+        tree: treeRsp.sha,
+        parents: [branchSha],
       });
 
       this.setState({
         pushFlag: true,
-        prURL: html_url,
+        branch,
+        showDiff: true,
+
+        branchSha: commitRsp.sha,
       });
       this.resetPushFields();
     } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log("err", err);
       let error = "Error occured while pushing";
-      if (err.response.status === 401) {
+      if (err.response && err.response.status === 401) {
         error = "Invalid Access Token";
       }
       this.setState({
@@ -404,7 +475,12 @@ class RulesetContainer extends Component {
     this.setState({ loading: false });
   }
   cancelAlert() {
-    this.setState({ generateFlag: false, pushFlag: false, pushError: "" });
+    this.setState({
+      generateFlag: false,
+      pushFlag: false,
+      pushError: "",
+      mergeFlag: false,
+    });
   }
 
   successAlert = ({
@@ -573,10 +649,52 @@ class RulesetContainer extends Component {
                 </div>
               </>
             )}
-            {this.state.pushFlag &&
+            {this.state.showDiff ? (
+              <Modal
+                isOpen={this.state.showDiff}
+                // onAfterOpen={afterOpenModal}
+                onRequestClose={this.closeDiffView}
+                style={{
+                  content: {
+                    // top: 100,
+                    // left: "50%",
+                    // right: "auto",
+                    // bottom: "auto",
+                    // marginRight: "-50%",
+                    // width: 800,
+                    // transform: "translate(-50%, -50%)",
+                    height: 800,
+                  },
+                }}
+                contentLabel="Diff View"
+              >
+                <h4>Diff View</h4>
+                <hr />
+                <div style={{ height: 650, overflowY: "auto" }}>
+                  <DiffRenderer
+                    branch={this.state.branchSha}
+                    token={this.state.accessToken}
+                  />
+                </div>
+                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                  <Button
+                    label={"Cancel"}
+                    onConfirm={this.closeDiffView}
+                    classname="btn-toolbar-small btn-warning"
+                  />
+                  <Button
+                    label={"Merge"}
+                    onConfirm={this.merge}
+                    classname="btn-toolbar-small error"
+                  />
+                  {this.state.loading && <Loader />}
+                </div>
+              </Modal>
+            ) : null}
+            {this.state.mergeFlag &&
               this.successAlert({
-                msg: "rule is successfully pushed to the repository",
-                title: "Pushed successfully",
+                msg: "rule is successfully Merged to the repository",
+                title: "Merged successfully",
               })}
             {this.state.pushError &&
               this.successAlert({
