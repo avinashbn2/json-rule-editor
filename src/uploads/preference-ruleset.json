@@ -1,5 +1,5 @@
 {
-  "name": "preference v2.0.91",
+  "name": "preference v2.1.10",
   "stage": "preference",
   "rules": [
     {
@@ -68,8 +68,11 @@
         },
         {
           "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
+          "operator": "in",
+          "rhs": [
+            "postcard",
+            "self_mailer"
+          ]
         }
       ],
       "yields": [
@@ -93,7 +96,8 @@
           "operator": "in",
           "rhs": [
             "letter",
-            "postcard"
+            "postcard",
+            "self_mailer"
           ]
         }
       ],
@@ -118,7 +122,8 @@
           "operator": "in",
           "rhs": [
             "letter",
-            "postcard"
+            "postcard",
+            "self_mailer"
           ]
         }
       ],
@@ -141,9 +146,7 @@
         {
           "lhs": "object",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "letter"
         }
       ],
       "yields": [
@@ -226,9 +229,7 @@
         {
           "lhs": "size",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "A5"
         },
         {
           "lhs": "mail_type",
@@ -254,9 +255,7 @@
         {
           "lhs": "size",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "A4"
         },
         {
           "lhs": "mail_type",
@@ -282,9 +281,7 @@
         {
           "lhs": "sla",
           "operator": "==",
-          "rhs": [
-            "1"
-          ]
+          "rhs": 1
         }
       ],
       "yields": [
@@ -305,21 +302,17 @@
         {
           "lhs": "account_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "2e6dede86c3294995798"
         },
         {
           "lhs": "sheets",
           "operator": "<=",
-          "rhs": "6"
+          "rhs": 6
         },
         {
           "lhs": "custom_envelope.id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "env_f8774a413ff2c7a6"
         }
       ],
       "yields": [
@@ -329,7 +322,7 @@
         },
         {
           "partner": "quantum",
-          "weight": 1e-8
+          "weight": 0.000001
         }
       ]
     },
@@ -348,9 +341,9 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "!=",
+          "operator": "not_in",
           "rhs": [
-            null
+            "certified_return_receipt"
           ]
         }
       ],
@@ -372,9 +365,7 @@
         {
           "lhs": "account_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "80f097997ac5944e9bf2"
         },
         {
           "lhs": "extra_service",
@@ -402,7 +393,8 @@
           "operator": "in",
           "rhs": [
             "f2d1252e7f3cec07584f",
-            "c58049e4ec6b78ca0e0d"
+            "c58049e4ec6b78ca0e0d",
+            "b5c70d66b69cbe11ccc0"
           ]
         },
         {
@@ -428,57 +420,25 @@
         },
         {
           "lhs": "account_id",
-          "operator": "==",
-          "rhs": "8b3a9050be98cf6e7dee"
+          "operator": "in",
+          "rhs": [
+            "8b3a9050be98cf6e7dee",
+            "0a55241de654621c5ed3"
+          ]
         },
         {
           "lhs": "size",
-          "operator": "==",
-          "rhs": "4x6"
+          "operator": "in",
+          "rhs": [
+            "4x6",
+            "6x9"
+          ]
         }
       ],
       "yields": [
         {
           "partner": "digital_lizard",
           "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Share Local Media 4x6 Distribution 2/8/21",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "12780cb4bb43d0d6f89a"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
-        },
-        {
-          "lhs": "size",
-          "operator": "==",
-          "rhs": "4x6"
-        }
-      ],
-      "yields": [
-        {
-          "partner": "quantum",
-          "weight": 0.38
-        },
-        {
-          "partner": "marksys",
-          "weight": 0.18
-        },
-        {
-          "partner": "digital_lizard",
-          "weight": 0.14
-        },
-        {
-          "partner": "printcomm",
-          "weight": 0.3
         }
       ]
     },
@@ -498,12 +458,13 @@
             "f20470cfd1418ee7bd68",
             "1481e63a84bf36ecaa88",
             "2bc783ebdd54e5fc39ef",
-            "12780cb4bb43d0d6f89a"
+            "12780cb4bb43d0d6f89a",
+            "599c943b1c1a3e36cf3f"
           ]
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -533,13 +494,11 @@
         {
           "lhs": "account_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "f503b505784d2565ad83"
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         }
       ],
@@ -559,7 +518,8 @@
           "rhs": [
             "49a9619299ba378265f9",
             "1481e63a84bf36ecaa88",
-            "5dd7ff2582a87f046cd8"
+            "5dd7ff2582a87f046cd8",
+            "cdd7a61391e532a059fd"
           ]
         }
       ],
@@ -576,9 +536,7 @@
         {
           "lhs": "account_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "cb02bf72af96cac39aba"
         },
         {
           "lhs": "object",
@@ -594,6 +552,10 @@
         {
           "partner": "nahan",
           "weight": 0.41
+        },
+        {
+          "partner": "quantum",
+          "weight": 0.000001
         }
       ]
     },
@@ -644,7 +606,7 @@
         },
         {
           "partner": "dotcorp",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
@@ -659,13 +621,11 @@
         {
           "lhs": "account_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "91ee35607ec68cdd4faa"
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         }
       ],
@@ -722,7 +682,7 @@
         },
         {
           "partner": "dotcorp",
-          "weight": 0.00001
+          "weight": 0.000001
         }
       ]
     },
@@ -747,7 +707,7 @@
         },
         {
           "partner": "quantum",
-          "weight": 0.00001
+          "weight": 0.000001
         }
       ]
     },
@@ -794,7 +754,7 @@
       ]
     },
     {
-      "note": "Send Ameelio Postcards to Hudson and DLiz (DDI doesn't want them)",
+      "note": "Send Ameelio Postcards to exclusively DLiz (DDI doesn't want them, and Hudson has an anti-nudity policy)",
       "expressions": [
         {
           "lhs": "object",
@@ -809,12 +769,38 @@
       ],
       "yields": [
         {
-          "partner": "hudson",
-          "weight": 0.51
+          "partner": "digital_lizard",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "note": "Hinge Health Postcards (DDI doesn't want large psc's)",
+      "expressions": [
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
         },
         {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x9"
+        },
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "ae8b7610206e6fdc43e2"
+        }
+      ],
+      "yields": [
+        {
           "partner": "digital_lizard",
-          "weight": 0.49
+          "weight": 0.5
+        },
+        {
+          "partner": "quantum",
+          "weight": 0.5
         }
       ]
     },
@@ -848,7 +834,13 @@
             "bg_596825bb74f33717b",
             "bg_89c634d092f0d668f",
             "bg_48bfb56f12e445879",
-            "bg_ad1989d53342d79e5"
+            "bg_ad1989d53342d79e5",
+            "bg_4693fe0b08d7e734a",
+            "bg_73ef24ec1b56b99af",
+            "bg_61586ed0c856029d5",
+            "bg_d361fd551a2230271",
+            "bg_a6e001537aebd16b6",
+            "bg_6b28bce0a8aeec32c"
           ]
         }
       ],
@@ -860,7 +852,7 @@
       ]
     },
     {
-      "note": "Verizon Planned 6x11 Postcards - Feb Home Winback 2.8 Postcards",
+      "note": "Verizon Planned 6x11 Postcards - Mar Home Cross Sell Standard",
       "expressions": [
         {
           "lhs": "account_id",
@@ -880,179 +872,13 @@
         {
           "lhs": "billing_group_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "wolverine",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Planned 6x11 Postcards - Feb Mix & Match 3.0 Pricing",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
-        },
-        {
-          "lhs": "size",
-          "operator": "==",
-          "rhs": "6x11"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "hudson",
-          "weight": 0.5
-        },
-        {
-          "partner": "liberty_creative",
-          "weight": 0.09
-        },
-        {
-          "partner": "sandy_alexander",
-          "weight": 0.06
-        },
-        {
-          "partner": "sg360",
-          "weight": 0.35
-        }
-      ]
-    },
-    {
-      "note": "Verizon Planned 6x11 Postcards - Feb Mobile Winback",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
-        },
-        {
-          "lhs": "size",
-          "operator": "==",
-          "rhs": "6x11"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "bg_373495d0677d233a3"
         }
       ],
       "yields": [
         {
           "partner": "polaris",
-          "weight": 0.06
-        },
-        {
-          "partner": "printcomm",
-          "weight": 0.92
-        },
-        {
-          "partner": "sandy_alexander",
-          "weight": 0.02
-        }
-      ]
-    },
-    {
-      "note": "Verizon Planned 6x11 Postcards - Feb Home Winback 2.16 Postcards",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
-        },
-        {
-          "lhs": "size",
-          "operator": "==",
-          "rhs": "6x11"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "digital_lizard",
           "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Planned 6x11 Postcards - Feb Home General Market 2.16",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
-        },
-        {
-          "lhs": "size",
-          "operator": "==",
-          "rhs": "6x11"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "hudson",
-          "weight": 0.19
-        },
-        {
-          "partner": "polaris",
-          "weight": 0.07
-        },
-        {
-          "partner": "printcomm",
-          "weight": 0.46
-        },
-        {
-          "partner": "wolverine",
-          "weight": 0.28
         }
       ]
     },
@@ -1072,7 +898,7 @@
         {
           "lhs": "billing_group_id",
           "operator": "==",
-          "rhs": "bg_4596232d5eeb81d0b"
+          "rhs": "bg_88ac700a1a8c65185"
         }
       ],
       "yields": [
@@ -1083,91 +909,7 @@
       ]
     },
     {
-      "note": "Verizon Planned Campaign Self Mailers - Jan 5G Home T2 new mrkts Cust & Pros",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "self_mailer"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "digital_lizard",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Planned Campaign Self Mailers - Feb Fios Internet Migration",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "self_mailer"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "wolverine",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Feb Home Winback 2.8 Letters - Wolverine",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "letter"
-        },
-        {
-          "lhs": "custom_envelope.id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "wolverine",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Feb 5G Home Postcards - Wolverine",
+      "note": "Verizon Mobile Cross Sell Trigger Postcards - Polaris",
       "expressions": [
         {
           "lhs": "account_id",
@@ -1187,75 +929,12 @@
         {
           "lhs": "billing_group_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "bg_7bbf211679913886d"
         }
       ],
       "yields": [
         {
-          "partner": "wolverine",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Feb 4G LTE Cross Sell - Wolverine",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "postcard"
-        },
-        {
-          "lhs": "size",
-          "operator": "==",
-          "rhs": "6x11"
-        },
-        {
-          "lhs": "billing_group_id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "wolverine",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "note": "Verizon Mobile Cross Sell Trigger Letters - Wolverine",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "138d5014f22d28be2700"
-        },
-        {
-          "lhs": "object",
-          "operator": "==",
-          "rhs": "letter"
-        },
-        {
-          "lhs": "custom_envelope.id",
-          "operator": "==",
-          "rhs": [
-            null
-          ]
-        }
-      ],
-      "yields": [
-        {
-          "partner": "wolverine",
+          "partner": "polaris",
           "weight": 1
         }
       ]
@@ -1276,9 +955,7 @@
         {
           "lhs": "custom_envelope.id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "env_916c77992f711eeec"
         }
       ],
       "yields": [
@@ -1289,7 +966,7 @@
       ]
     },
     {
-      "note": "Verizon Planned 6x11 Postcards - Mar CDMA Upgrade",
+      "note": "Verizon Planned 6x11 Postcards - HGM 3.15",
       "expressions": [
         {
           "lhs": "account_id",
@@ -1309,19 +986,267 @@
         {
           "lhs": "billing_group_id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "bg_978b837a35b8e7ad9"
         }
       ],
       "yields": [
         {
-          "partner": "marksys",
-          "weight": 0.57
+          "partner": "hudson",
+          "weight": 0.32
+        },
+        {
+          "partner": "polaris",
+          "weight": 0.29
         },
         {
           "partner": "wolverine",
-          "weight": 0.43
+          "weight": 0.39
+        }
+      ]
+    },
+    {
+      "note": "Verizon Trigger Letters - Home Winback 3.15",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "letter"
+        },
+        {
+          "lhs": "custom_envelope.id",
+          "operator": "==",
+          "rhs": "env_1fd3bc837b4c71e78"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "wolverine",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned 6x11 Postcards - Home Winback 3.15",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
+        },
+        {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x11"
+        },
+        {
+          "lhs": "billing_group_id",
+          "operator": "==",
+          "rhs": "bg_08f81289a48eec072"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "liberty_creative",
+          "weight": 0.38
+        },
+        {
+          "partner": "marksys",
+          "weight": 0.62
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned 6x11 Postcards - Mar 4G LTE Cross Sell",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
+        },
+        {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x11"
+        },
+        {
+          "lhs": "billing_group_id",
+          "operator": "==",
+          "rhs": "bg_6c2ff21c080563943"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "wolverine",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned 6x11 Postcards - Mar Mix & Match 3.0 Pricing",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
+        },
+        {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x11"
+        },
+        {
+          "lhs": "billing_group_id",
+          "operator": "==",
+          "rhs": "bg_653b2eb1e1ace62ab"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "polaris",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned 6x11 Postcards - Mar Mobile Winback",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
+        },
+        {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x11"
+        },
+        {
+          "lhs": "billing_group_id",
+          "operator": "==",
+          "rhs": "bg_d5592fe48a38e616e"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "printcomm",
+          "weight": 0.93
+        },
+        {
+          "partner": "liberty_creative",
+          "weight": 0.07
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned Letters - Mar Cloud Migration",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "letter"
+        },
+        {
+          "lhs": "custom_envelope.id",
+          "operator": "==",
+          "rhs": "env_07b065e4eb3c200f3"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "polaris",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned 6x11 Postcards - Mar CDMA Upgrade iPhone",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
+        },
+        {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x11"
+        },
+        {
+          "lhs": "billing_group_id",
+          "operator": "==",
+          "rhs": "bg_5f3b52a61e32af1f1"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "digital_lizard",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "note": "Verizon Planned 6x11 Postcards - Home Winback 3.22",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "138d5014f22d28be2700"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "postcard"
+        },
+        {
+          "lhs": "size",
+          "operator": "==",
+          "rhs": "6x11"
+        },
+        {
+          "lhs": "billing_group_id",
+          "operator": "==",
+          "rhs": "bg_abea24dbb8c029ca4"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "ddi",
+          "weight": 1
         }
       ]
     },
@@ -1341,19 +1266,17 @@
         {
           "lhs": "custom_envelope.id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "env_a0f9cfde7258f014f"
         }
       ],
       "yields": [
         {
           "partner": "printcomm",
-          "weight": 0.99
+          "weight": 0.4
         },
         {
           "partner": "wolverine",
-          "weight": 0.01
+          "weight": 0.6
         }
       ]
     },
@@ -1373,9 +1296,7 @@
         {
           "lhs": "custom_envelope.id",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "env_42a732912f0a8942f"
         }
       ],
       "yields": [
@@ -1407,7 +1328,7 @@
       ]
     },
     {
-      "note": "4x6 Postcard Base Distribution (Feb 2021)",
+      "note": "4x6 Postcard Base Distribution (Mar 2021)",
       "expressions": [
         {
           "lhs": "object",
@@ -1422,27 +1343,25 @@
         {
           "lhs": "to.address_country",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "UNITED STATES"
         }
       ],
       "yields": [
         {
           "partner": "hatteras",
-          "weight": 0.5
+          "weight": 0.4
         },
         {
           "partner": "sandy_alexander",
-          "weight": 0.3
+          "weight": 0.15
         },
         {
-          "partner": "ddi",
-          "weight": 0.2
+          "partner": "hudson",
+          "weight": 0.45
         },
         {
-          "partner": "digital_lizard",
-          "weight": 1e-7
+          "partner": "quantum",
+          "weight": 0.000001
         }
       ]
     },
@@ -1461,9 +1380,9 @@
         },
         {
           "lhs": "to.address_country",
-          "operator": "!=",
+          "operator": "not_in",
           "rhs": [
-            null
+            "UNITED STATES"
           ]
         }
       ],
@@ -1474,12 +1393,12 @@
         },
         {
           "partner": "hudson",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
     {
-      "note": "6x11 Postcard Base Distribution (Feb 2021)",
+      "note": "6x11 Postcard Base Distribution (Mar 2021)",
       "expressions": [
         {
           "lhs": "object",
@@ -1495,24 +1414,16 @@
       "yields": [
         {
           "partner": "hudson",
-          "weight": 0.4
+          "weight": 1
         },
         {
-          "partner": "digital_lizard",
-          "weight": 0.31
-        },
-        {
-          "partner": "ddi",
-          "weight": 0.29
-        },
-        {
-          "partner": "wolverine",
-          "weight": 0.00001
+          "partner": "quantum",
+          "weight": 0.000001
         }
       ]
     },
     {
-      "note": "6x9 Postcard Base Distribution (Feb 2021)",
+      "note": "6x9 Postcard Base Distribution (Mar 2021)",
       "expressions": [
         {
           "lhs": "object",
@@ -1527,25 +1438,17 @@
       ],
       "yields": [
         {
-          "partner": "digital_lizard",
-          "weight": 0.31
-        },
-        {
           "partner": "hudson",
-          "weight": 0.29
+          "weight": 1
         },
         {
-          "partner": "ddi",
-          "weight": 0.4
-        },
-        {
-          "partner": "wolverine",
+          "partner": "quantum",
           "weight": 0.000001
         }
       ]
     },
     {
-      "note": "5x7 Postcard Base Distribution (Feb 2021)",
+      "note": "5x7 Postcard Base Distribution (Mar 2021)",
       "expressions": [
         {
           "lhs": "object",
@@ -1560,8 +1463,12 @@
       ],
       "yields": [
         {
-          "partner": "ddi",
+          "partner": "hudson",
           "weight": 1
+        },
+        {
+          "partner": "ddi",
+          "weight": 0.000001
         }
       ]
     },
@@ -1576,32 +1483,38 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "21"
+          "rhs": 21
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1622,21 +1535,21 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "7"
+          "rhs": 7
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1646,13 +1559,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1662,7 +1581,7 @@
         },
         {
           "partner": "darwill",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
@@ -1677,21 +1596,21 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "7"
+          "rhs": 7
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1701,13 +1620,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1717,7 +1642,7 @@
         },
         {
           "partner": "darwill",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
@@ -1732,11 +1657,11 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "7"
+          "rhs": 7
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1746,7 +1671,7 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1756,13 +1681,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1772,7 +1703,7 @@
         },
         {
           "partner": "darwill",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
@@ -1787,11 +1718,11 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "7"
+          "rhs": 7
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1801,7 +1732,7 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1811,13 +1742,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1827,7 +1764,7 @@
         },
         {
           "partner": "darwill",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
@@ -1842,21 +1779,21 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "3"
+          "rhs": 3
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1866,13 +1803,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1893,21 +1836,21 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "3"
+          "rhs": 3
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1917,13 +1860,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -1948,11 +1897,11 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "3"
+          "rhs": 3
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1962,7 +1911,7 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -1972,13 +1921,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -2003,11 +1958,11 @@
         {
           "lhs": "sheets",
           "operator": ">=",
-          "rhs": "3"
+          "rhs": 3
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2017,7 +1972,7 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2027,13 +1982,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -2044,7 +2005,7 @@
       ]
     },
     {
-      "note": "1-2 Sheet without Perforation/Return Letter Base Distribution - Standard Class] (Feb 2021)",
+      "note": "1-2 Sheet without Perforation/Return Letter Base Distribution - Standard Class] (Mar 2021)",
       "expressions": [
         {
           "lhs": "object",
@@ -2054,21 +2015,21 @@
         {
           "lhs": "sheets",
           "operator": "<=",
-          "rhs": "2"
+          "rhs": 2
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2078,13 +2039,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -2109,21 +2076,21 @@
         {
           "lhs": "sheets",
           "operator": "<=",
-          "rhs": "2"
+          "rhs": 2
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "return_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2133,13 +2100,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -2148,12 +2121,8 @@
           "weight": 0.4
         },
         {
-          "partner": "polaris",
-          "weight": 0.3
-        },
-        {
           "partner": "nahan",
-          "weight": 0.3
+          "weight": 0.6
         }
       ]
     },
@@ -2168,11 +2137,11 @@
         {
           "lhs": "sheets",
           "operator": "<=",
-          "rhs": "2"
+          "rhs": 2
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2182,7 +2151,7 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2192,13 +2161,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -2219,11 +2194,11 @@
         {
           "lhs": "sheets",
           "operator": "<=",
-          "rhs": "2"
+          "rhs": 2
         },
         {
           "lhs": "custom_envelope.id",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2233,7 +2208,7 @@
         },
         {
           "lhs": "extra_service",
-          "operator": "in",
+          "operator": "==",
           "rhs": null
         },
         {
@@ -2243,13 +2218,19 @@
         },
         {
           "lhs": "color",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         },
         {
           "lhs": "double_sided",
-          "operator": "==",
-          "rhs": true
+          "operator": "in",
+          "rhs": [
+            true,
+            false
+          ]
         }
       ],
       "yields": [
@@ -2259,7 +2240,7 @@
         },
         {
           "partner": "dotcorp",
-          "weight": 1e-10
+          "weight": 0.000001
         }
       ]
     },
@@ -2274,16 +2255,12 @@
         {
           "lhs": "mail_type",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "usps_first_class"
         },
         {
           "lhs": "to.address_country",
           "operator": "==",
-          "rhs": [
-            null
-          ]
+          "rhs": "UNITED STATES"
         }
       ],
       "yields": [
