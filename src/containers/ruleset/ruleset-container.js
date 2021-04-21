@@ -663,14 +663,15 @@ class RulesetContainer extends Component {
                     // marginRight: "-50%",
                     // width: 800,
                     // transform: "translate(-50%, -50%)",
-                    height: 800,
+                    top: 40,
+                    bottom: 40,
                   },
                 }}
                 contentLabel="Diff View"
               >
                 <h4>Diff View</h4>
                 <hr />
-                <div style={{ height: 650, overflowY: "auto" }}>
+                <div style={{ height: "80%", overflowY: "auto" }}>
                   <DiffRenderer
                     branch={this.state.branchSha}
                     token={this.state.accessToken}
