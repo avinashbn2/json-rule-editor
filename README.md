@@ -16,7 +16,7 @@ Facinating feature it implies is, we can validate the business decisions instant
 
 To launch the json rule editor tool, you can do either of the below
 
-1.                   Click [json rule editor](https://www.json-rule-editor.com)
+1.                    Click [json rule editor](https://www.json-rule-editor.com)
 2.  or install it locally via `git clone https://github.com/vinzdeveloper/json-rule-editor.git`
     - start the application by `npm install` and `npm start`
 
@@ -41,6 +41,11 @@ This documentation covers,
 
 # Project specific documentation
 
+### Core Engine
+
+`/src/engine` includes core lib functions which are used to create the facts, conditions, operators etc based on the configurations
+any modification need for core logic changes needs to be done here
+
 ### Configuration
 
 `/src/constants` includes json configuration of attributes, data-types, operators, options ( options for multivalued attributes) and yield types
@@ -55,13 +60,16 @@ This documentation covers,
 
 for adding/updating/deleting rulesets redux actions are present in the `src/reducers/ruleset-reducer.js`
 
+`/src/components/decisions/add-decision.js`, `/src/components/decisions/decision.js`, `/src/components/decisions/decision-details.js` includes the Views for decisons(View,update,create)
+
 ### Validations
 
 `/src/components/validate/validate-rules.js`- includes the validation logic
 
 `/src/validations/validate-rules.js`- includes functions for calling engine function which is used to get the success/failed test results
 
-### Core Engine
+### Github API
 
-`/src/engine` includes core lib functions which are used to create the facts, conditions, operators etc based on the configurations
-any modification need for core logic changes needs to be done here
+`/src/api/index.js`- includes the API calls for github api to create blobs, commits, branches, PRs, merge, get diff,
+
+`/src/components/diff-renderer` component to view the diff
