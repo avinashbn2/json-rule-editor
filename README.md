@@ -16,7 +16,7 @@ Facinating feature it implies is, we can validate the business decisions instant
 
 To launch the json rule editor tool, you can do either of the below
 
-1.                  Click [json rule editor](https://www.json-rule-editor.com)
+1.                   Click [json rule editor](https://www.json-rule-editor.com)
 2.  or install it locally via `git clone https://github.com/vinzdeveloper/json-rule-editor.git`
     - start the application by `npm install` and `npm start`
 
@@ -54,13 +54,6 @@ This documentation covers,
 `/src/containers/ruleset/ruleset-container.js` - Container component of all the tabs (Fields, Tests, Generate, Validate, Push )
 
 for adding/updating/deleting rulesets redux actions are present in the `src/reducers/ruleset-reducer.js`
-
-### Tests
-
-`/src/components/test-runner/index.js` includes logic related to test runner
-`/src/components/test-runner/test-cases.js` view for test cases
-
-for adding/updating/deleting tests redux actions are present in the `src/reducers/testcase-reducer.js`
 
 ### Validations
 
