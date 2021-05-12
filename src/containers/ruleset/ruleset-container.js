@@ -312,12 +312,6 @@ class RulesetContainer extends Component {
         })),
       };
     });
-    // converting from  name,value format to  lhs,rhs format
-    // const expressions = ruleset.data.expressions.map(({ name: lhs, operator, value: rhs }) => ({
-    // 	lhs,
-    // 	operator: operatorsMap[operator] || operator,
-    // 	rhs
-    // }));
     const parts = name.split(".");
     let version = parseInt(parts[parts.length - 1], 10);
     version += 1;
@@ -419,14 +413,6 @@ class RulesetContainer extends Component {
         .toISOString()
         .slice(0, 16)
         .replace(":", "")}`;
-      //   await updateFile({
-      //     message: this.state.message,
-      //     content: JSON.stringify(obj, null, 2),
-      //     sha,
-      //     path: PREFERENCE_PATH,
-      //     token: this.state.accessToken,
-      //     branch,
-      //   });
       const data = await createBlob({
         token: this.state.accessToken,
         content: JSON.stringify(obj, null, 2),

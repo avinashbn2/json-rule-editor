@@ -14,10 +14,11 @@ Facinating feature it implies is, we can validate the business decisions instant
 
 ### Usage:
 
-To launch the json rule editor tool, you can do either of the below 
-1. 	Click [json rule editor](https://www.json-rule-editor.com) 
+To launch the json rule editor tool, you can do either of the below
+
+1.             Click [json rule editor](https://www.json-rule-editor.com)
 2.  or install it locally via `git clone https://github.com/vinzdeveloper/json-rule-editor.git`
-     - start the application by `npm install` and `npm start`
+    - start the application by `npm install` and `npm start`
 
 The detailed steps to create json rule file using this tool in [next section](https://vinzdeveloper.github.io/json-rule-editor/docs/create-rules.html).
 
@@ -38,5 +39,10 @@ This documentation covers,
 5. [More examples in Decisions](https://vinzdeveloper.github.io/json-rule-editor/docs/decisions.html)
 6. [Advanced examples](https://vinzdeveloper.github.io/json-rule-editor/docs/advanced.html)
 
+### Project specific documentation
 
+##### Configuration
 
+`/src/constants` includes json configuration of attributes, data-types, operators, options (dropdown options for multivalued attributes) and yield types
+
+`/reducers/ruleset-reducer/` includes the core actions for performing CRUD operations on rulesets

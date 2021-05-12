@@ -1,7 +1,11 @@
 import * as ActionTypes from "../actions/action-types";
 import { cloneDeep } from "lodash/lang";
 import { findIndex } from "lodash/array";
-
+import {
+  reverseOperatorsMap,
+  getStringValue,
+  getNullable,
+} from "../utils/helpers";
 const initialState = {
   rulesets: [],
   activeRuleset: 0,
@@ -12,38 +16,7 @@ const initialState = {
 const replaceRulesetByIndex = (rulesets, targetset, index) => {
   return [...rulesets.slice(0, index), targetset, ...rulesets.slice(index + 1)];
 };
-const reverseOperatorsMap = {
-  "==": "equal",
-  "!=": "notEqual",
-  "<=": "lessThanInclusive",
-  "<": "lessThan",
-  ">": "greaterThan",
-  ">=": "greaterThanInclusive",
-  not_in: "notIn",
-};
-const getStringValue = (value) => {
-  const nullIndex =
-    Array.isArray(value) && value.findIndex((val) => val === null);
-  if (
-    nullIndex !== false &&
-    nullIndex !== -1 &&
-    value &&
-    Array.isArray(value)
-  ) {
-    value.splice(nullIndex, 1);
-  }
 
-  if (value === "null") {
-    return undefined;
-  }
-  return `${value}`;
-};
-const getNullable = (value) => {
-  return (
-    value === null ||
-    (Array.isArray(value) && value.findIndex((val) => val === null) !== -1)
-  );
-};
 function ruleset(state = initialState || {}, action = "") {
   switch (action.type) {
     case ActionTypes.UPDATE_RULSET_NAME: {
@@ -80,19 +53,8 @@ function ruleset(state = initialState || {}, action = "") {
           ...others,
         };
       });
-      // const expressions = exps.map(({ lhs: name, operator, rhs: value }) => ({
-      // 	name,
-      // 	operator: reverseOperatorsMap[operator] || operator,
-      // 	value
-      // }));
 
       if (state.rulesets && state.rulesets.length > 0) {
-        // rulesets = state.rulesets.concat({
-        // 	name: `Ruleset-${state.rulesets.length + 1}`,
-        // 	atrribtues: [],
-        // 	decisions: [],
-        // 	data: rules
-        // });
         rulesets = [
           {
             name: state.rulesets[0].name,
@@ -111,7 +73,6 @@ function ruleset(state = initialState || {}, action = "") {
           },
         ];
       }
-      // console.log('state.rulesets', state.rulesets);
       return {
         ...state,
         rulesets: cloneDeep(rulesets),
@@ -122,7 +83,6 @@ function ruleset(state = initialState || {}, action = "") {
     case ActionTypes.ADD_RULESET: {
       const { name } = action.payload;
       const rulset = { name, attributes: [], decisions: [] };
-      // const count = state.rulesets.length === 0 ? 0 : state.rulesets.length;
       return { ...state, rulesets: [rulset], activeRuleset: 0 };
     }
 
@@ -133,7 +93,6 @@ function ruleset(state = initialState || {}, action = "") {
         expressions: oldExpressions = [],
         yields: oldYields = [],
       } = activeRuleSet.data || {};
-      // activeRuleSet.data = [...dt, { ...action.payload }];
       let {
         note,
         expressions,
@@ -168,11 +127,6 @@ function ruleset(state = initialState || {}, action = "") {
       } else {
         activeRuleSet.data = [{ note, expressions, yields, name, override }];
       }
-      // activeRuleSet.data = {
-      // 	note,
-      // 	expressions,
-      // 	yields
-      // };
       return {
         ...state,
         updatedFlag: true,
@@ -206,6 +160,7 @@ function ruleset(state = initialState || {}, action = "") {
       };
     }
 
+    // action for updating expressions, yields or note in the edit view
     case ActionTypes.UPDATE_DECISION: {
       const {
         expression = {},
@@ -294,6 +249,8 @@ function ruleset(state = initialState || {}, action = "") {
         ),
       };
     }
+    // Action for adding new expression, yield
+    // payload: {expression, yield, type="expression"| "yield",rulecaseIndex: currently selected rulecase index}
     case ActionTypes.ADD_NEW_ITEM: {
       const {
         expression = {},
@@ -333,6 +290,8 @@ function ruleset(state = initialState || {}, action = "") {
         ),
       };
     }
+    // on delete action to remove expression/yield
+
     case ActionTypes.REMOVE_DECISION: {
       const { decisionIndex, rulecaseIndex, type } = action.payload;
       const activeRuleSet = { ...state.rulesets[state.activeRuleset] };
