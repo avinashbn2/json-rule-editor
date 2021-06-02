@@ -3,23 +3,6 @@
   "stage": "preference",
   "rules": [
     {
-      "note": "Send load test orders to vex",
-      "expressions": [
-        {
-          "lhs": "account_id",
-          "operator": "==",
-          "rhs": "01de2ba28b1d661471cc"
-        }
-      ],
-      "yields": [
-        {
-          "partner": "vex",
-          "weight": 1
-        }
-      ],
-      "override": true
-    },
-    {
       "note": "Send QA account orders to Sandy",
       "expressions": [
         {
@@ -36,6 +19,23 @@
       "yields": [
         {
           "partner": "sandy_alexander",
+          "weight": 1
+        }
+      ],
+      "override": true
+    },
+    {
+      "note": "Send load test orders to vex",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "01de2ba28b1d661471cc"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "vex",
           "weight": 1
         }
       ],
