@@ -1,7 +1,46 @@
 {
-  "name": "preference v2.1.13",
+  "name": "preference v2.1.10",
   "stage": "preference",
   "rules": [
+    {
+      "note": "Send load test orders to vex",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "01de2ba28b1d661471cc"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "vex",
+          "weight": 1
+        }
+      ],
+      "override": true
+    },
+    {
+      "note": "Send QA account orders to Sandy",
+      "expressions": [
+        {
+          "lhs": "account_id",
+          "operator": "==",
+          "rhs": "129eb7595157b2e3f76d"
+        },
+        {
+          "lhs": "object",
+          "operator": "==",
+          "rhs": "letter"
+        }
+      ],
+      "yields": [
+        {
+          "partner": "sandy_alexander",
+          "weight": 1
+        }
+      ],
+      "override": true
+    },
     {
       "note": "Send QA account orders to Hudson",
       "expressions": [
